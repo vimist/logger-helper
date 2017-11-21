@@ -57,18 +57,20 @@ class TestLoggerHelper(unittest.TestCase):
         # Create the logger_helper
         self._logger_helper = LoggerHelper(self._logger, logging.DEBUG)
 
-    def test__wrap_callable_logs_call_and_return(self):
-        self._logger_helper.call_log_format = 'Calling'
-        self._logger_helper.return_log_format = 'Returned'
+        # Set easy defaults for the log format
+        self._logger_helper.call_log_format = '{callable}'
+        self._logger_helper.return_log_format = '{value}'
+        self._logger_helper.argument_format = '{name}={value}'
+        self._logger_helper.argument_separator = ','
+        self._logger_helper.exception_log_format = '{name}'
 
+    def test__wrap_callable_logs_call_and_return(self):
         wrapped = self._logger_helper._wrap_callable(basic_function)
         wrapped(1, 2, 3)
 
-        self.assertEqual(['Calling', 'Returned'], self._logs)
+        self.assertEqual(['tests.basic_function', '\'Test\''], self._logs)
 
     def test__wrap_callable_logs_and_passes_through_exception(self):
-        self._logger_helper.exception_log_format = 'Exception'
-
         wrapped = self._logger_helper._wrap_callable(exception_function)
 
         with self.assertRaises(Exception):
@@ -91,8 +93,6 @@ class TestLoggerHelper(unittest.TestCase):
 
     def test__log_call(self):
         self._logger_helper.call_log_format = '{callable}:{args}'
-        self._logger_helper.argument_format = '{name}={value}'
-        self._logger_helper.argument_separator = ','
 
         self._logger_helper._log_call(
             basic_function, (10, 20), {'c': 40, 'd': 'Test'})
@@ -102,8 +102,6 @@ class TestLoggerHelper(unittest.TestCase):
         self.assertEqual([log_record], self._logs)
 
     def test__log_return(self):
-        self._logger_helper.return_log_format = '{value}'
-
         self._logger_helper._log_return(basic_function, 'Test')
 
         self.assertEqual(['\'Test\''], self._logs)
@@ -120,9 +118,6 @@ class TestLoggerHelper(unittest.TestCase):
             self._logger_helper.__call__('Hello')
 
     def test___call__wraps_all_class_methods(self):
-        self._logger_helper.call_log_format = '{callable}'
-        self._logger_helper.return_log_format = '{value}'
-
         wrapped = self._logger_helper.__call__(BasicClass)
 
         bc = wrapped()
@@ -137,36 +132,24 @@ class TestLoggerHelper(unittest.TestCase):
             self._logs)
 
     def test___call__wraps_function(self):
-        self._logger_helper.call_log_format = '{callable}'
-        self._logger_helper.return_log_format = '{value}'
-
         wrapped = self._logger_helper.__call__(basic_function)
         wrapped(1, 2, 3, 4, 5)
 
         self.assertEqual(['tests.basic_function', '\'Test\''], self._logs)
 
     def test_func_wraps_function(self):
-        self._logger_helper.call_log_format = '{callable}'
-        self._logger_helper.return_log_format = '{value}'
-
         wrapped = self._logger_helper.func(basic_function)
         wrapped(1, 2, 3, 4, 5)
 
         self.assertEqual(['tests.basic_function', '\'Test\''], self._logs)
 
     def test_meth_wraps_function(self):
-        self._logger_helper.call_log_format = '{callable}'
-        self._logger_helper.return_log_format = '{value}'
-
         wrapped = self._logger_helper.meth(basic_function)
         wrapped(1, 2, 3, 4, 5)
 
         self.assertEqual(['tests.basic_function', '\'Test\''], self._logs)
 
     def test_mod_wraps_module(self):
-        self._logger_helper.call_log_format = '{callable}'
-        self._logger_helper.return_log_format = '{value}'
-
         self._logger_helper.mod(self._basic_module)
 
         self._basic_module.basic_function(9, 8, 7)  # pylint: disable=no-member
@@ -185,9 +168,6 @@ class TestLoggerHelper(unittest.TestCase):
             self._logs)
 
     def test_mod_only_wraps_given_symbols(self):
-        self._logger_helper.call_log_format = '{callable}'
-        self._logger_helper.return_log_format = '{value}'
-
         # pylint: disable=no-member
         self._logger_helper.mod(self._basic_module, ['BasicClass'])
 
