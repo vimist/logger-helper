@@ -302,8 +302,6 @@ class LoggerHelper:
     def meth(self, method):
         """Wrap a method.
 
-
-
         Note:
             This method is identical to :meth:`func`, it is just here for
             terminology correctness when wrapping a single method.
