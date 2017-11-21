@@ -1,0 +1,7 @@
+docs/_build
+htmlcov
+__pycache__
+.coverage
+*.swp
+*.pyc
+*.log
