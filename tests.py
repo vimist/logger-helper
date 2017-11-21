@@ -2,6 +2,7 @@ import inspect
 import logging
 import types
 import unittest
+from unittest.mock import patch
 
 from logger_helper import LoggerHelper
 from logger_helper import get_callable_name
@@ -9,7 +10,7 @@ from logger_helper import get_callable_name
 
 # pylint: disable=invalid-name,unused-argument
 def basic_function(a, b, c, d=1, e=2):
-    """Test Docstring."""
+    """Test Docstring 1."""
     return 'Test'
 
 
@@ -22,10 +23,10 @@ class BasicClass:
         self.value = 'Test'
 
     def method_1(self):
-        return '{value} 1'.format(value=self.value)
+        """Test Docstring 2."""
 
     def method_2(self):
-        return '{value} 2'.format(value=self.value)
+        """Test Docstring 3."""
 
 
 class TestLoggerHelper(unittest.TestCase):
@@ -80,7 +81,7 @@ class TestLoggerHelper(unittest.TestCase):
 
     def test__wrap_callable_keeps_docstrings(self):
         wrapped = self._logger_helper._wrap_callable(basic_function)
-        self.assertEqual('Test Docstring.', wrapped.__doc__)
+        self.assertEqual('Test Docstring 1.', wrapped.__doc__)
 
     def test__wrap_keeps_signature(self):
         wrapped = self._logger_helper._wrap_callable(basic_function)
@@ -121,66 +122,40 @@ class TestLoggerHelper(unittest.TestCase):
         wrapped = self._logger_helper.__call__(BasicClass)
 
         bc = wrapped()
-        bc.method_1()
-        bc.method_2()
 
-        self.assertEqual(
-            [
-                'tests.BasicClass.method_1', '\'Test 1\'',
-                'tests.BasicClass.method_2', '\'Test 2\''
-            ],
-            self._logs)
+        self.assertIsNot(bc.method_1, BasicClass.method_1)
+        self.assertIs(bc.method_1.__wrapped__, BasicClass.method_1)
+
+        self.assertIsNot(bc.method_2, BasicClass.method_2)
+        self.assertIs(bc.method_2.__wrapped__, BasicClass.method_2)
 
     def test___call__wraps_function(self):
-        wrapped = self._logger_helper.__call__(basic_function)
-        wrapped(1, 2, 3, 4, 5)
+        with patch('logger_helper.LoggerHelper.func') as mock:
+            self._logger_helper.__call__(basic_function)
 
-        self.assertEqual(['tests.basic_function', '\'Test\''], self._logs)
+        mock.assert_called_once_with(basic_function)
 
     def test_func_wraps_function(self):
         wrapped = self._logger_helper.func(basic_function)
-        wrapped(1, 2, 3, 4, 5)
 
-        self.assertEqual(['tests.basic_function', '\'Test\''], self._logs)
+        self.assertIsNot(wrapped, basic_function)
+        self.assertIs(wrapped.__wrapped__, basic_function)
 
-    def test_meth_wraps_function(self):
-        wrapped = self._logger_helper.meth(basic_function)
-        wrapped(1, 2, 3, 4, 5)
+    def test_meth_wraps_method(self):
+        new_method = self._logger_helper.meth(BasicClass.method_1)
 
-        self.assertEqual(['tests.basic_function', '\'Test\''], self._logs)
+        self.assertIsNot(new_method, BasicClass.method_1)
+        self.assertIs(new_method.__wrapped__, BasicClass.method_1)
 
     def test_mod_wraps_module(self):
-        self._logger_helper.mod(self._basic_module)
+        with patch('logger_helper.LoggerHelper.__call__') as mock:
+            self._logger_helper.mod(self._basic_module)
 
-        self._basic_module.basic_function(9, 8, 7)  # pylint: disable=no-member
-        bc = self._basic_module.BasicClass()  # pylint: disable=no-member
-        bc.method_1()
-        bc.method_2()
+        mock.assert_any_call(basic_function)
+        mock.assert_any_call(BasicClass)
 
-        # pylint: disable=no-member
-        self.assertEqual(self._basic_module.property, 123)
-        self.assertEqual(
-            [
-                'tests.basic_function', '\'Test\'',
-                'tests.BasicClass.method_1', '\'Test 1\'',
-                'tests.BasicClass.method_2', '\'Test 2\'',
-            ],
-            self._logs)
+    def test_mod_only_wraps_given_symbols_in_module(self):
+        with patch('logger_helper.LoggerHelper.__call__') as mock:
+            self._logger_helper.mod(self._basic_module, ['BasicClass'])
 
-    def test_mod_only_wraps_given_symbols(self):
-        # pylint: disable=no-member
-        self._logger_helper.mod(self._basic_module, ['BasicClass'])
-
-        self._basic_module.basic_function(9, 8, 7)  # pylint: disable=no-member
-        bc = self._basic_module.BasicClass()  # pylint: disable=no-member
-        bc.method_1()
-        bc.method_2()
-
-        # pylint: disable=no-member
-        self.assertEqual(self._basic_module.property, 123)
-        self.assertEqual(
-            [
-                'tests.BasicClass.method_1', '\'Test 1\'',
-                'tests.BasicClass.method_2', '\'Test 2\'',
-            ],
-            self._logs)
+        mock.assert_called_once_with(BasicClass)
