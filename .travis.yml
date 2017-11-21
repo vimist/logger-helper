@@ -1,0 +1,15 @@
+language: python
+python:
+  - "3.4"
+sudo: required
+services:
+  - docker
+before_install:
+  - pip3 install codeclimate-test-reporter
+script:
+  - make docs
+  - make test
+  - make lint-module
+  - make lint-tests
+after_success:
+  - codeclimate-test-reporter
