@@ -27,7 +27,7 @@ To install the Logger Helper package, ensure you have pip installed using your
 distributions package manager and then run the following command:
 
 ```bash
-pip install git+https://github.com/vimist/logger-helper
+pip install logger-helper
 ```
 
 Basic Usage
