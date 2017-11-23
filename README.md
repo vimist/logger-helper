@@ -58,7 +58,7 @@ def function():
     pass
 ```
 
-For more information, be sure to read [the documentation][docs].  If you clone
+For more information, be sure to read [the documentation][docs]. If you clone
 this repository and install [invoke][invoke], you can serve
 the documentation locally with `invoke serve-docs`.
 
