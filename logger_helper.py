@@ -247,7 +247,8 @@ class LoggerHelper:
         Parameters:
             mod (module): The module to wrap.
             symbols (list): If this is specified, only the symbols
-                (classes/functions) listed will be wrapped.
+                (classes/functions) listed will be wrapped. Each item in the
+                list should be a string.
 
         Returns:
             None: Nothing is returned, the class is wrapped in place.
