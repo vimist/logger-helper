@@ -83,11 +83,22 @@ def serve_docs(cxt, port=8080):
 
 @task
 def test(cxt):
+    """Run all tests."""
+    unit_test(cxt)
+    test_install(cxt)
+
+@task
+def unit_test(cxt):
     """Run the unit tests."""
     build_ci(cxt)
 
     command = 'coverage run -m unittest {tests_file}'
     ci(cxt, command.format(tests_file=TESTS_FILE))
+
+@task
+def test_install(cxt):
+    """Test that the package installs with PIP."""
+    ci(cxt, 'pip install .')
 
 @task
 def lint(cxt):
@@ -100,10 +111,10 @@ def lint_module(cxt):
     """Run the linters on the module."""
     build_ci(cxt)
 
-    command = 'pylint --reports no {module}'
+    command = 'pylint --reports no {module} setup.py'
     ci(cxt, command.format(module=MODULE_NAME))
 
-    command = 'flake8 {module}'
+    command = 'flake8 {module} setup.py'
     ci(cxt, command.format(module=MODULE_NAME))
 
 @task

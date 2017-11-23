@@ -7,7 +7,8 @@ services:
 before_install:
   - pip3 install codeclimate-test-reporter
 script:
-  - invoke test
+  - invoke unit-test
+  - invoke test-install
   - invoke lint-module
   - invoke lint-tests
   - invoke build-docs
