@@ -1,6 +1,6 @@
 Documentation build, testing and linting for the `master` branch.
 
-[![Build Status](https://travis-ci.org/vimist/logger-helper.svg?branch=master)](https://travis-ci.org/vimist/logger-helper) [![Maintainability](https://api.codeclimate.com/v1/badges/17691babd47c3cc19e91/maintainability)](https://codeclimate.com/github/vimist/logger-helper/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/17691babd47c3cc19e91/test_coverage)](https://codeclimate.com/github/vimist/logger-helper/test_coverage)
+[![Documentation Status][docs_badge]][docs] [![Build Status][build_badge]][build] [![Maintainability][maintainability_badge]][maintainability] [![Test Coverage][test_coverage_badge]][test_coverage]
 
 Logger Helper
 =============
@@ -58,6 +58,18 @@ def function():
     pass
 ```
 
-For more information, be sure to read the documentation. If you clone this
-repository and install [invoke](http://www.pyinvoke.org), you can serve the
-documentation locally with `invoke serve-docs`.
+For more information, be sure to read [the documentation][docs].  If you clone
+this repository and install [invoke][invoke], you can serve
+the documentation locally with `invoke serve-docs`.
+
+
+[docs]: http://logger-helper.readthedocs.io/en/latest/
+[invoke]: http://www.pyinvoke.org
+[build]: https://travis-ci.org/vimist/logger-helper
+[maintainability]: https://codeclimate.com/github/vimist/logger-helper/maintainability
+[test_coverage]: https://codeclimate.com/github/vimist/logger-helper/test_coverage
+
+[docs_badge]: https://readthedocs.org/projects/logger-helper/badge/?version=latest
+[build_badge]: https://travis-ci.org/vimist/logger-helper.svg?branch=master
+[maintainability_badge]: https://api.codeclimate.com/v1/badges/17691babd47c3cc19e91/maintainability
+[test_coverage_badge]: https://api.codeclimate.com/v1/badges/17691babd47c3cc19e91/test_coverage
