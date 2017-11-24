@@ -113,3 +113,7 @@ def lint_tests(cxt):
 @task(lint_module, lint_tests)
 def lint(cxt):
     """Run the linters."""
+
+@task(lint, test, build_docs, default=True)
+def all(cxt):
+    """Run all of the linting, testing and build the docs."""
