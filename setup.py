@@ -11,7 +11,7 @@ setup(
     version='0.0.1',
     author='Vimist',
     description='A simple way to gather verbose logs from your application!',
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     url='https://github.com/vimist/logger-helper',
     classifiers=[
         'Intended Audience :: Developers',
