@@ -106,11 +106,14 @@ class LoggerHelper:
         self.exception_log_format = (
             'Exception {name} occurred in {callable}, "{message}"')
 
-    def _wrap_callable(self, clbl):
+    def _wrap_callable(self, clbl, class_method=False):
         """Wrap a callable in the decorator that performs the logging.
 
         Parameters:
             clbl: The callable to wrap.
+            class_method (bool): Whether the callable is a class method. This
+                is used to determine if we should log the first parameter if
+                it's called `self`.
 
         Returns:
             A new callable that will perform the logging as well as the
@@ -129,7 +132,7 @@ class LoggerHelper:
             Returns:
                 Whatever the original callable returns.
             """
-            self._log_call(clbl, args, kwargs)
+            self._log_call(clbl, args, kwargs, class_method)
 
             try:
                 return_value = clbl(*args, **kwargs)
@@ -143,7 +146,7 @@ class LoggerHelper:
 
         return wrapped_callable
 
-    def _log_call(self, clbl, args, kwargs):
+    def _log_call(self, clbl, args, kwargs, class_method):
         """Log the call to the callable.
 
         Note:
@@ -155,6 +158,9 @@ class LoggerHelper:
             clbl: The callable to log the call for.
             args (list): Positional parameters passed to the callable.
             kwargs (dict): Keyword parameters passed to the callable.
+            class_method (bool): Whether the callable is a class method. This
+                is used to determine if we should log the first parameter if
+                it's called `self`.
 
         Returns:
             None
@@ -163,6 +169,9 @@ class LoggerHelper:
 
         arg_list = []
         for i, parameter in enumerate(parameters):
+            if class_method and parameter == 'self':
+                continue
+
             try:
                 val = args[i]
             except IndexError:
@@ -283,7 +292,7 @@ class LoggerHelper:
                     and member_name.endswith('__')):
                 continue
 
-            wrapped_method = self._wrap_callable(member)
+            wrapped_method = self._wrap_callable(member, True)
 
             setattr(new_cls, member_name, wrapped_method)
 
@@ -301,13 +310,9 @@ class LoggerHelper:
         return self._wrap_callable(function)
 
     def meth(self, method):
-        """Wrap a method.
-
-        Note:
-            This method is identical to :meth:`func`, it is just here for
-            terminology correctness when wrapping a single method.
+        """Wrap a method belonging to a class.
 
         Returns:
             `method`: A wrapped *copy* of the fiven method.
         """
-        return self._wrap_callable(method)
+        return self._wrap_callable(method, True)
