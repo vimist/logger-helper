@@ -8,7 +8,7 @@ from setuptools import setup
 
 setup(
     name='logger-helper',
-    version='0.0.3',
+    version='0.0.4',
     author='Vimist',
     description='A simple way to gather verbose logs from your application!',
     long_description=open('README.rst').read(),
