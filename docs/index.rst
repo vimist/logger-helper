@@ -1,5 +1,8 @@
 Logger Helper
 =============
 
-.. automodule:: logger_helper
-   :members:
+.. toctree::
+   :maxdepth: 2
+
+   getting_started
+   logger_helper

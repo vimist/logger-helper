@@ -1,39 +1,4 @@
-"""Logger helper stays out of your way and gives you verbose debug logs.
-
-Import logging and the :class:`LoggerHelper` class to get started:
-
-    >>> import logging
-    >>> import logger_helper
-
-Configure the `logging` module as you would normally (see the Python
-documentation on `logging configuration
-<https://docs.python.org/3/howto/logging.html#configuring-logging>`_). Then
-create a new instance of the :class:`LoggerHelper` class:
-
-    >>> log = logger_helper.LoggerHelper(
-    ...     logging.getLogger(__name__), logging.DEBUG)
-
-**That's it, you're done!** (almost). The only thing that's left to do from
-here is to choose the modules, classes, methods and functions to wrap!
-
-Classes, methods and functions can all be wrapped very simply, just use the
-class instance as a decorator directly:
-
-    >>> @log
-    >>> class MyClass:
-    >>>     def method_one(self, param):
-    >>>         # Do something
-    >>>         pass
-
-    >>> @log
-    >>> def my_function(param_one, param_two):
-    >>>     # Do something
-    >>>     pass
-
-Take a look at the :meth:`LoggerHelper.mod`, :meth:`LoggerHelper.cls`,
-:meth:`LoggerHelper.meth` and :meth:`LoggerHelper.func` methods for more
-information.
-"""
+"""Logger Helper main classes and utility functions."""
 
 import inspect
 import functools

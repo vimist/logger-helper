@@ -113,7 +113,7 @@ html_static_path = ['_static']
 #
 # This is required for the alabaster theme
 # refs: http://alabaster.readthedocs.io/en/latest/installation.html#sidebars
-html_sidebars = { '**': [ ] } # No sidebar
+# html_sidebars = { '**': [ ] } # No sidebar
 
 
 # -- Options for HTMLHelp output ------------------------------------------
