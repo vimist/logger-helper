@@ -1,4 +1,4 @@
-Documentation build, testing and linting for the `master` branch.
+Documentation build, testing and linting for the ``master`` branch.
 
 .. image:: https://readthedocs.org/projects/logger-helper/badge/?version=latest
    :target: `the documentation`_
@@ -16,9 +16,10 @@ Logger Helper
 =============
 
 Logger Helper provides a simple way to gather verbose logs within your
-application. Set up your logging using the standard `logging` library and
+application. Set up your logging using the standard ``logging`` library and
 decorate your classes, methods and functions (or even do it at the module level
-with the `mod` method) to get detailed logs of what your application is doing:
+with the ``mod`` method) to get detailed logs of what your application is
+doing:
 
 .. code-block::
 
@@ -42,7 +43,7 @@ distributions package manager and then run the following command:
 Basic Usage
 -----------
 
-You can start using the `LoggerHelper` right away.
+You can start using the ``LoggerHelper`` right away.
 
 .. code-block:: python
 
@@ -69,7 +70,7 @@ You can start using the `LoggerHelper` right away.
 
 For more information, be sure to read `the documentation`_. If you clone this
 repository and install `invoke`_, you can serve the documentation locally with
-`invoke serve-docs`.
+``invoke serve-docs``.
 
 
 .. _invoke: http://www.pyinvoke.org
