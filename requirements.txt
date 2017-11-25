@@ -1,6 +1,7 @@
 invoke==0.21.0
 bumpversion==0.5.3
 Sphinx==1.6.5
+sphinx-rtd-theme==0.2.4
 coverage==4.3.0
 pylint==1.7.4
 flake8==3.5.0
