@@ -111,7 +111,7 @@ class LoggerHelper:
 
         return wrapped_callable
 
-    def _log_call(self, clbl, args, kwargs, class_method):
+    def _log_call(self, clbl, args, kwargs, class_method=False):
         """Log the call to the callable.
 
         Note:
