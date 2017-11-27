@@ -1,8 +1,12 @@
+.. _getting-started:
+
 Getting Started
 ===============
 
 .. toctree::
    :maxdepth: 2
+
+Please read the :ref:`installation` section before going any further.
 
 Importing and Setup
 -------------------
