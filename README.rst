@@ -3,13 +3,16 @@ Documentation build, testing and linting for the ``master`` branch.
 .. image:: https://readthedocs.org/projects/logger-helper/badge/?version=latest
    :target: `the documentation`_
 
+.. image:: https://img.shields.io/pypi/v/logger-helper.svg
+   :target: https://pypi.python.org/pypi/logger-helper
+
 .. image:: https://travis-ci.org/vimist/logger-helper.svg?branch=master
    :target: https://travis-ci.org/vimist/logger-helper
 
-.. image:: https://api.codeclimate.com/v1/badges/17691babd47c3cc19e91/maintainability
+.. image:: https://img.shields.io/codeclimate/maintainability/vimist/logger-helper.svg
    :target: https://codeclimate.com/github/vimist/logger-helper/maintainability
 
-.. image:: https://api.codeclimate.com/v1/badges/17691babd47c3cc19e91/test_coverage
+.. image:: https://img.shields.io/codeclimate/coverage/github/vimist/logger-helper.svg
    :target: https://codeclimate.com/github/vimist/logger-helper/test_coverage
 
 Logger Helper
