@@ -11,7 +11,7 @@ Please read the :ref:`installation` section before going any further.
 Importing and Setup
 -------------------
 
-Import logging and the :class:`logger_helper.LoggerHelper` class to get
+Import ``logging`` and the :class:`logger_helper.LoggerHelper` class to get
 started:
 
     >>> import logging
@@ -54,8 +54,8 @@ wrapped very simply, just use the class instance as a decorator:
     >>>     print('Doing something with {} and {}'.format(param_1, param_2))
     >>>     raise Exception('Something didn\'t work out...')
 
-After you've wrapped your classes and functions, you can use your classes and
-functions just as you would normally:
+After you've wrapped your classes and functions, you can use them just as you
+would normally:
 
     >>> my_class = MyClass()
     >>> my_class.method_one('Hi')
