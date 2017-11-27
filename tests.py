@@ -102,6 +102,17 @@ class TestLoggerHelper(unittest.TestCase):
 
         self.assertEqual([log_record], self._logs)
 
+    def test__log_call_ignores_self_parameter_when_class_method_is_true(self):
+        self._logger_helper.call_log_format = '{args}'
+
+        def self_function(self, param_one):
+            """Test function."""
+
+        self._logger_helper._log_call(
+            self_function, [123, 456], {}, class_method=True)
+
+        self.assertEqual('param_one=456', self._logs[0])
+
     def test__log_return(self):
         self._logger_helper._log_return(basic_function, 'Test')
 
