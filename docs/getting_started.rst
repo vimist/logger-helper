@@ -50,8 +50,8 @@ wrapped very simply, just use the class instance as a decorator:
     >>>     print('Doing something with {} and {}'.format(param_1, param_2))
     >>>     raise Exception('Something didn\'t work out...')
 
-After you've wrapped your classes and functions, you can use your docs just as
-you would normally:
+After you've wrapped your classes and functions, you can use your classes and
+functions just as you would normally:
 
     >>> my_class = MyClass()
     >>> my_class.method_one('Hi')
