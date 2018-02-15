@@ -18,6 +18,7 @@ def exception_function():
     raise Exception('This is an exception')
 
 
+# pylint: disable=unused-variable
 class BasicClass:
     def __init__(self):
         self.value = 'Test'

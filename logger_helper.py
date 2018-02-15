@@ -18,7 +18,7 @@ def get_callable_name(clbl):
         callable=clbl.__qualname__)
 
 
-# pylint: disable=too-many-instance-attributes
+# pylint: disable=too-many-instance-attributes,unused-variable
 class LoggerHelper:
     """Log calls to class methods and functions."""
 
