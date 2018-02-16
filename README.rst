@@ -4,7 +4,7 @@ Documentation build, testing and linting for the ``master`` branch.
    :target: `the documentation`_
 
 .. image:: https://img.shields.io/pypi/v/logger-helper.svg
-   :target: https://pypi.python.org/pypi/logger-helper
+   :target: https://pypi.python.org/pypi/logger-helper/0.0.5
 
 .. image:: https://travis-ci.org/vimist/logger-helper.svg?branch=master
    :target: https://travis-ci.org/vimist/logger-helper
