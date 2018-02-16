@@ -93,7 +93,7 @@ def lint_module(cxt):
     command = 'pylint --reports no {module} setup.py'
     ci(cxt, command.format(module=MODULE_NAME))
 
-    command = 'flake8 {module} setup.py'
+    command = 'flake8 --ignore D413 {module} setup.py'
     ci(cxt, command.format(module=MODULE_NAME))
 
 @task(build_ci)
