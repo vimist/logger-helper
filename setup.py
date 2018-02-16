@@ -21,5 +21,5 @@ setup(
         'Topic :: System :: Logging',
         'Topic :: System :: Monitoring'
     ],
-    py_modules=['logger_helper']
+    packages=['logger_helper']
 )

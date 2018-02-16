@@ -1,7 +1,7 @@
 """Logger Helper main classes and utility functions."""
 
-import inspect
 import functools
+import inspect
 
 
 def get_callable_name(clbl):
@@ -228,9 +228,9 @@ class LoggerHelper:
             None: Nothing is returned, the class is wrapped in place.
         """
         for member_name, member in inspect.getmembers(mod):
-            if ((symbols is not None and member_name not in symbols)
-                    or not inspect.isclass(member)
-                    and not inspect.isfunction(member)):
+            if ((symbols is not None and member_name not in symbols) or
+                    not inspect.isclass(member) and
+                    not inspect.isfunction(member)):
                 continue
 
             member = getattr(mod, member_name)
@@ -253,8 +253,8 @@ class LoggerHelper:
 
         for member_name, member in inspect.getmembers(new_cls):
             if not callable(member) or (
-                    member_name.startswith('__')
-                    and member_name.endswith('__')):
+                    member_name.startswith('__') and
+                    member_name.endswith('__')):
                 continue
 
             wrapped_method = self._wrap_callable(member, True)
