@@ -69,7 +69,7 @@ would normally:
     Caught: Something didn't work out...
 
 Now, lets take a look at ``/tmp/my_log.log`` (the handler we set up at the
-beginning of this tutorial:
+beginning of this tutorial):
 
 .. code-block:: bash
 
