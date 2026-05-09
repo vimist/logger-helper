@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - run: pip3 install codeclimate-test-reporter
+
+      - run: invoke unit-test
+
+      - run: invoke test-install
+
+      - run: invoke lint-module
+
+      - run: invoke lint-tests
+
+      - run: invoke build-docs
+
+      - run: codeclimate-test-reporter
+
+      - if: startsWith(github.ref, 'refs/tags/')
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: vimist
+          password: >
+            kjxvhBJNfvcrUZZPVBKdRMvswq7BXLAQMHDfQ/00BAENutq4MyMON9cYU23PumJq+0w5bafuz
+            BBWch8Vn11ZLFMmbhYUBWrLtdz4zmkj0bqOqlf0eE/k7lpWzKcbSNgNM/0IGyb8G4x2yf5Io3
+            BVDwZgcfDtEdL1P9z+IIIlaoxpOznSHnojlWO3+yuB5TKRE18gOS8ZnRvQGQNmxhf5wOntIgS
+            6+ivHoS8ufB+iB+cZ5CQbmkvdAarNqZxwIacz1PilJ8SxnN9yVCbPCdE/e1TywJkc6BCHqrTR
+            UiFaNvIGKsCYgqkC2qk0IFV2JYLmEB2nx3i8OA4kc+2xtXbewUfzCY1kgaIo/BvHcaYrVfSgd
+            z04LHHtfoDwEwTZrdBwUevG4Y8hrW708BLEVIeS0600sMJj9wpEivn4JRiZmjjkFbORDPe6Kh
+            bgY5f/vslPdJdqYA8fsU022f8hUCv7ZaOiuZKNa3D1K2pp92AroumEs6gtksO+Ht5yab1DwFv
+            EZN2N+/MLTI3teirk3ShNTHWwKLI4h9ABkwTEVp/Xpf7GihhV5aYUADXSOaFS2P37bRGe1LMm
+            +W0GfYBb9uYAXZ7UuknNrRVdDrIvJgyPcdW1XcYtbaxK6z2KHKSZmmexB2CY1bSjtX5C0BPjH
+            Rvj8OUOqRusGLZw1QPdkYxrEcI=
